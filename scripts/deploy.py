@@ -1,4 +1,4 @@
-from brownie import network, config, accounts, ERC20
+from brownie import network, config, accounts, ERC20, Swap, Liquidity
 
 FORKED_LOCAL_ENVIRONMENTS = ["mainnet-fork", "mainnet-fork-dev"]
 LOCAL_BLOCKCHAIN_ENVIRONMENTS = ["development", "ganache-local"]
@@ -17,6 +17,16 @@ SUPPLY_TOKEN = 100
 def deployToken(account):
     token = ERC20.deploy(SUPPLY_TOKEN, {"from": account})
     return token
+
+def deploySwap(account):
+    txn = Swap.swap({"amounts": 100, "coin": "DAI", "from": account, "to": accounts[1], "amount": 100})
+    txn.wait(1)
+    return True
+
+def deployLiquidity(account):
+    txn = Liquidity.addLiquidity({"amounts": 100, "min_share":10, "from": account})
+    txn.wait(1)
+    return True 
 
 def main():
     account = get_account()
