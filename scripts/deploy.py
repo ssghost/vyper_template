@@ -19,7 +19,7 @@ def deployToken(account):
     return token
 
 def deploySwap(account):
-    txn = Swap.swap({"amounts": 100, "coin": "DAI", "from": account, "to": accounts[1], "amount": 100})
+    txn = Swap.swap({"amount": 100, "coin": "DAI", "from": account, "to": accounts[1]})
     txn.wait(1)
     return True
 
