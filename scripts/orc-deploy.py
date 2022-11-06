@@ -1,5 +1,5 @@
 import click
-import dotenv
+import os
 from ape_vyper import project
 from ape_vyper.cli import NetworkBoundCommand, account_option
 
@@ -7,7 +7,7 @@ from ape_vyper.cli import NetworkBoundCommand, account_option
 @account_option
 @click.option(
     "--signer",
-    default = dotenv.COINBASE_SIGNER,
+    default = os.getenv('COINBASE_SIGNER'),
 )
 def cli(account, signer):
     account.deploy(project.Oracle, signer)
